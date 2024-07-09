@@ -4,12 +4,13 @@
 #include "raylib.h"
 
 #include "config.h"
+#include "map.h"
 
 int main() {
     // Raylib initialization
     // Project name, screen size, fullscreen mode etc. can be specified in the config.h.in file
     SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
-    InitWindow(Game::ScreenWidth, Game::ScreenHeight, Game::PROJECT_NAME);
+    InitWindow(Game::ScreenWidth, Game::ScreenHeight, "Portfolio_Programming2");
     SetTargetFPS(60);
 
 #ifdef GAME_START_FULLSCREEN
@@ -19,10 +20,11 @@ int main() {
     // Your own initialization code here
     // ...
     // ...
-    Texture2D myTexture = LoadTexture("assets/graphics/testimage.png");
     RenderTexture2D canvas = LoadRenderTexture(Game::ScreenWidth, Game::ScreenHeight);
     float renderScale{}; // this and the line below are relevant to drawing later.
     Rectangle renderRec{};
+
+    auto Map = new map (nullptr);
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -41,14 +43,15 @@ int main() {
         // ...
         // ...
 
+        Map->update();
+
         BeginDrawing();
         // You can draw on the screen between BeginDrawing() and EndDrawing()
         // For the letterbox we draw on canvas instad
         BeginTextureMode(canvas);
         { //Within this block is where we draw our app to the canvas and YOUR code goes.
             ClearBackground(WHITE);
-            DrawText("Hello, world!", 10, 10, 30, LIGHTGRAY);
-            DrawTexture(myTexture, 10, 100, WHITE);
+            Map->draw();
         }
         EndTextureMode();
         //The following lines put the canvas in the middle of the window and have the negative as black
@@ -76,7 +79,6 @@ int main() {
     // De-initialization here
     // ...
     // ...
-    UnloadTexture(myTexture);
 
     // Close window and OpenGL context
     CloseWindow();
