@@ -9,8 +9,22 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(${PROJECT_NAME} main.cpp
-        map.cpp
-        map.h)
+        Map.cpp
+        Map.h
+        ItemBase.cpp
+        ItemBase.h
+        Character.cpp
+        Character.h
+        PlayerChar.cpp
+        PlayerChar.h
+        Inventory.h
+        EquipableItem.cpp
+        EquipableItem.h
+        UISystem.cpp
+        UISystem.h
+        Pathfinding.cpp
+        Pathfinding.h
+)
 
 # Add config.h.in file
 configure_file(config.h.in config.h)
